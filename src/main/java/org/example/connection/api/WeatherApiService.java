@@ -21,7 +21,7 @@ public class WeatherApiService {
                 .append(lat)
                 .append("&longitude=")
                 .append(lan)
-                .append("&hourly=temperature_2m&timezone=Europe%2FBerlin");
+                .append("&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin");
 
         try {
             URI uri = new URI(url.toString());
