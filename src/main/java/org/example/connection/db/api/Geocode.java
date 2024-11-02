@@ -18,9 +18,7 @@ public class Geocode {
     private double longitude;
     private String apiKey = "672603415fb3e308262303soqf25b0d";
 
-
     private String city;
-
 
     public Geocode() {
     }
