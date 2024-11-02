@@ -8,8 +8,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class WeatherApiService {
-    private HttpClient httpClient;
-    private String apiUrl;
+    private final HttpClient httpClient;
+    private final String apiUrl;
 
     public WeatherApiService() {
         this.apiUrl = "https://api.open-meteo.com/v1/forecast";
