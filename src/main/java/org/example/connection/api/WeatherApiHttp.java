@@ -23,53 +23,40 @@ public class WeatherApiHttp {
     }
 
     public String getOpenMeteoData(double lat, double lon) {
-        StringBuilder url = new StringBuilder(this.openMeteoUrl).append("?latitude=")
-                .append(lat)
-                .append("&longitude=")
-                .append(lon)
-                .append("&current=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m&timezone=Europe%2FBerlin");
+        String url = this.openMeteoUrl + "?latitude=" +
+                lat +
+                "&longitude=" +
+                lon +
+                "&current=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m&timezone=Europe%2FBerlin";
 
-        try {
-            URI uri = new URI(url.toString());
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(uri)
-                    .GET()
-                    .build();
-
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            return response.body();
-
-        } catch (URISyntaxException | IOException | InterruptedException e) {
-            e.printStackTrace();
-            return "[{}]";
-        }
+        return this.httpRequest(url);
     }
 
     public String getOpenWeatherData(double lat, double lon) {
-        StringBuilder url = new StringBuilder(this.openWeatherUrl).append("?lat=")
-                .append(lat)
-                .append("&lon=")
-                .append(lon)
-                .append("&units=metric&appid=")
-                .append(openWeatherApiKey);
+        String url = this.openWeatherUrl + "?lat=" +
+                lat +
+                "&lon=" +
+                lon +
+                "&units=metric&appid=" +
+                openWeatherApiKey;
 
+        return this.httpRequest(url);
+    }
+
+    private String httpRequest(String url) {
         try {
-            URI uri = new URI(url.toString());
+            URI uri = new URI(url);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(uri)
                     .GET()
                     .build();
-
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             return response.body();
-
         } catch (URISyntaxException | IOException | InterruptedException e) {
             e.printStackTrace();
-            return "[{}]";
+            return null;
         }
     }
 
