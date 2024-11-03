@@ -30,7 +30,7 @@ public class MainView implements ApplicationMenu {
 
             switch (selectedOption) {
                 case LOCATIONS -> locationsView.showMenu();
-                case WEATHER -> textIO.getTextTerminal().println("weather");
+                case WEATHER -> textIO.getTextTerminal().println("weatherr");
                 case EXIT -> textIO.dispose();
             }
         }
