@@ -42,19 +42,4 @@ public class Weather {
         this.cloudWeather = cloudWeather;
         this.windWeather = windWeather;
     }
-
-    @Override
-    public String toString() {
-        return "Weather{" +
-                "id=" + id +
-                ", tempMeteo=" + tempMeteo +
-                ", humidityMeteo=" + humidityMeteo +
-                ", cloudMeteo=" + cloudMeteo +
-                ", windMeteo=" + windMeteo +
-                ", tempWeather=" + tempWeather +
-                ", humidityWeather=" + humidityWeather +
-                ", cloudWeather=" + cloudWeather +
-                ", windWeather=" + windWeather +
-                '}';
-    }
 }
