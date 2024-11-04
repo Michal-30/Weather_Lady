@@ -18,10 +18,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GeocodeService {
-    private String apiKey = "672603415fb3e308262303soqf25b0d";
-    private List<Location> locations = new ArrayList<>();
-    private String search;
-    private String urlSearch;
+    private final String apiKey = "672603415fb3e308262303soqf25b0d";
+    private final List<Location> locations = new ArrayList<>();
+    private final String search;
+    private final String urlSearch;
 
     public GeocodeService(String search) {
         this.search = search;
@@ -33,7 +33,6 @@ public class GeocodeService {
     public List<Location> getLocations() {
         return locations;
     }
-
 
     public String jsonString(String url) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -86,7 +85,9 @@ public class GeocodeService {
         Iterator<String> keys = jsonObject.keys();
         while (keys.hasNext()) {
             String key = keys.next();
-            if(key.equals("county")){location.setRegion(jsonObject.get(key).toString());};
+            if(key.equals("county")){location.setCounty(jsonObject.get(key).toString());};
+            if(key.equals("municipality")){location.setMunicipality(jsonObject.get(key).toString());};
+            if(key.equals("suburb")){location.setSuburb(jsonObject.get(key).toString());};
             if(key.equals("country")){location.setCountry(jsonObject.get(key).toString());};
             if(key.equals("city")){location.setCity(jsonObject.get(key).toString());};
         }

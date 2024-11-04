@@ -1,56 +1,28 @@
 package org.example.connection.db.models;
 
+
 import javax.persistence.*;
+import java.nio.file.Watchable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Location")
+@Table(name = "Locations")
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
+
     private double latitude;
     private double longitude;
-    private String region;
     private String country;
+    private String county;
+    private String municipality;
     private String city;
+    private String suburb;
 
-    public Location(double latitude, double longitude, String region, String country, String city) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.region = region;
-        this.country = country;
-        this.city = city;
-    }
-
-    public Location() {
-    }
-
-    // Gettery a settery
-
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "location")
+    private List<Weather> weathers = new ArrayList<>();
 
     public double getLatitude() {
         return latitude;
@@ -60,27 +32,61 @@ public class Location {
         return longitude;
     }
 
-    public String getRegion() {
-        return region;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getCountry() {
-        return country;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public void setMunicipality(String municipality) {
+        this.municipality = municipality;
+    }
+
+    public void setSuburb(String suburb) {
+        this.suburb = suburb;
     }
 
     public String getCity() {
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public List<Weather> getWeathers() {
+        return weathers;
+    }
+
+    public Location() {
+    }
+
+    public void setWeather(Weather weather){
+        weathers.add(weather);
+        weather.setLocation(this);
+    }
+
     @Override
     public String toString() {
         return "Location{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", region='" + region + '\'' +
                 ", country='" + country + '\'' +
+                ", county='" + county + '\'' +
+                ", municipality='" + municipality + '\'' +
                 ", city='" + city + '\'' +
+                ", suburb='" + suburb + '\'' +
                 '}';
     }
 }
