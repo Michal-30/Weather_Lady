@@ -11,5 +11,6 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <mapping package="org.example" />
         <mapping class="org.example.connection.db.models.Weather" />
+        <mapping class="org.example.connection.db.models.Location" />
     </session-factory>
 </hibernate-configuration>
