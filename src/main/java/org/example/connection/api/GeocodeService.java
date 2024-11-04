@@ -115,7 +115,12 @@ public class GeocodeService {
     }
 
     public static void main(String[] args) {
-        GeocodeService location = new GeocodeService("brno");
-        location.saveLocations();
+        GeocodeService locations = new GeocodeService("brno");
+        locations.saveLocations();
+        locations.getLocations().forEach(l-> {
+            WeatherApiService weatherApiService = new WeatherApiService(l.getLatitude(),l.getLongitude());
+            weatherApiService.saveWeathers();
+        });
+
     }
 }
