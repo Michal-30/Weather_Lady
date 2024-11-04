@@ -1,43 +1,35 @@
 package org.example.connection.api;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import org.example.connection.db.daos.GenericDao;
+import org.example.connection.db.models.Weather;
+import org.example.connection.db.services.GenericService;
 
 public class WeatherApiService {
-    private HttpClient httpClient;
-    private String apiUrl;
+    private final double lat;
+    private final double lon;
+    private final WeatherApiHttp weatherApiHttp;
+    private final GenericDao<Weather, Long> weatherDao;
+    private final GenericService<Weather, Long> weatherService;
 
-    public WeatherApiService() {
-        this.apiUrl = "https://api.open-meteo.com/v1/forecast";
-        this.httpClient = HttpClient.newHttpClient();
+    public WeatherApiService(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+        this.weatherApiHttp = new WeatherApiHttp();
+        this.weatherDao = new GenericDao<>(Weather.class);
+        this.weatherService = new GenericService<>(weatherDao);
     }
 
-    public String getWeatherByCord(double lat, double lan) {
-        StringBuilder url = new StringBuilder(this.apiUrl).append("?latitude=")
-                .append(lat)
-                .append("&longitude=")
-                .append(lan)
-                .append("&hourly=temperature_2m&timezone=Europe%2FBerlin");
+    public void saveWeathers() {
+        String openMeteoResponse = weatherApiHttp.getOpenMeteoData(this.lat, this.lon);
+        String openWeatherResponse = weatherApiHttp.getOpenWeatherData(this.lat, this.lon);
 
-        try {
-            URI uri = new URI(url.toString());
+        Weather weather = new WeatherUtils().createWeather(openMeteoResponse, openWeatherResponse);
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(uri)
-                    .GET()
-                    .build();
+        weatherService.save(weather);
+    }
 
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            return response.body();
-
-        } catch (URISyntaxException | IOException | InterruptedException e) {
-            e.printStackTrace();
-            return "[{}]";
-        }
+    public static void main(String[] args) {
+        WeatherApiService weatherApiService = new WeatherApiService(52.52, 13.41);
     }
 }

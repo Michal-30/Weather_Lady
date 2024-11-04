@@ -6,13 +6,15 @@ public class Location {
     private final double longitude;
     private final String region;
     private final String country;
+    private final String city;
 
-    public Location(String id, double latitude, double longitude, String region, String country) {
+    public Location(String id, double latitude, double longitude, String region, String country, String city) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.region = region;
         this.country = country;
+        this.city = city;
     }
 
     // Gettery a settery
@@ -36,4 +38,7 @@ public class Location {
         return country;
     }
 
+    public String getCity() {
+        return city;
+    }
 }
