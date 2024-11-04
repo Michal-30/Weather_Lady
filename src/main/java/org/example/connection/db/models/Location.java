@@ -1,15 +1,20 @@
 package org.example.connection.db.models;
 
-public class Location {
-    private final String id;
-    private final double latitude;
-    private final double longitude;
-    private final String region;
-    private final String country;
-    private final String city;
+import javax.persistence.*;
 
-    public Location(String id, double latitude, double longitude, String region, String country, String city) {
-        this.id = id;
+@Entity
+@Table(name = "Location")
+public class Location {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
+    private double latitude;
+    private double longitude;
+    private String region;
+    private String country;
+    private String city;
+
+    public Location(double latitude, double longitude, String region, String country, String city) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.region = region;
@@ -17,7 +22,32 @@ public class Location {
         this.city = city;
     }
 
+    public Location() {
+    }
+
     // Gettery a settery
+
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getId() {
         return id;
     }
@@ -40,5 +70,17 @@ public class Location {
 
     public String getCity() {
         return city;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id='" + id + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", region='" + region + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }
