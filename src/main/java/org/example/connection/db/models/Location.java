@@ -21,8 +21,8 @@ public class Location {
     private String city;
     private String suburb;
 
-    @OneToMany(mappedBy = "location")
-    private List<Weather> weathers = new ArrayList<>();
+//    @OneToMany(mappedBy = "location")
+//    private List<Weather> weathers = new ArrayList<>();
 
     public double getLatitude() {
         return latitude;
@@ -64,17 +64,17 @@ public class Location {
         this.city = city;
     }
 
-    public List<Weather> getWeathers() {
-        return weathers;
-    }
+//    public List<Weather> getWeathers() {
+//        return weathers;
+//    }
 
     public Location() {
     }
 
-    public void setWeather(Weather weather){
-        weathers.add(weather);
-        weather.setLocation(this);
-    }
+//    public void setWeather(Weather weather){
+//        weathers.add(weather);
+//        //weather.setLocation(this);
+//    }
 
     @Override
     public String toString() {

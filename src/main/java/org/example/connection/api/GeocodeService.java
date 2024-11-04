@@ -7,7 +7,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import org.example.connection.db.daos.GenericDao;
 import org.example.connection.db.models.Location;
+import org.example.connection.db.services.GenericService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,11 +19,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class GeocodeService {
     private final String apiKey = "672603415fb3e308262303soqf25b0d";
     private final List<Location> locations = new ArrayList<>();
     private final String search;
     private final String urlSearch;
+    private final GenericDao<Location, Long> locationDao = new GenericDao<>(Location.class);
+    private final GenericService<Location, Long> locatonService = new GenericService<>(locationDao);
 
     public GeocodeService(String search) {
         this.search = search;
@@ -102,4 +107,16 @@ public class GeocodeService {
         scannerJsonObject(addressObject,newLocation);
         return newLocation;
     }
+
+    public void saveLocations() {
+        this.locations.forEach(l-> {
+            locatonService.save(l);
+        });
+    }
+
+    public static void main(String[] args) {
+        GeocodeService location = new GeocodeService("brno");
+        location.saveLocations();
+    }
 }
+
