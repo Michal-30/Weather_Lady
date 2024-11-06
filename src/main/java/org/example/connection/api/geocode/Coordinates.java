@@ -1,4 +1,4 @@
-package org.example.connection.api;
+package org.example.connection.api.geocode;
 
 public class Coordinates {
     private double latitude;
