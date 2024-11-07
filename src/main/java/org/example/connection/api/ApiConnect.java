@@ -1,4 +1,4 @@
-package org.example.connection.api.geocode;
+package org.example.connection.api;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,14 +26,10 @@ public class ApiConnect {
             HttpGet request = new HttpGet(this.url);
             HttpResponse response = httpClient.execute(request);
             if (response.getStatusLine().getStatusCode() == 200) {
-                //sleep for 1 second (free api give request every one second)
-                Thread.sleep(1000);
                 return EntityUtils.toString(response.getEntity());
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
         return null;
     }
