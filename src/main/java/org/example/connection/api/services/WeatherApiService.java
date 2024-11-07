@@ -1,5 +1,7 @@
-package org.example.connection.api;
+package org.example.connection.api.services;
 
+import org.example.connection.api.WeatherApiHttp;
+import org.example.connection.api.WeatherUtils;
 import org.example.connection.db.daos.GenericDao;
 import org.example.connection.db.models.Weather;
 import org.example.connection.db.services.GenericService;
