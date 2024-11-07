@@ -3,6 +3,7 @@ package org.example.connection.api.services;
 import org.example.connection.api.WeatherApiHttp;
 import org.example.connection.api.WeatherUtils;
 import org.example.connection.db.daos.GenericDao;
+import org.example.connection.db.models.Location;
 import org.example.connection.db.models.Weather;
 import org.example.connection.db.services.GenericService;
 
@@ -13,9 +14,9 @@ public class WeatherApiService {
     private final GenericDao<Weather, Long> weatherDao;
     private final GenericService<Weather, Long> weatherService;
 
-    public WeatherApiService(double lat, double lon) {
-        this.lat = lat;
-        this.lon = lon;
+    public WeatherApiService(Location location) {
+        this.lat = location.getLatitude();
+        this.lon = location.getLongitude();
         this.weatherApiHttp = new WeatherApiHttp();
         this.weatherDao = new GenericDao<>(Weather.class);
         this.weatherService = new GenericService<>(weatherDao);
@@ -32,6 +33,9 @@ public class WeatherApiService {
 
 
     public static void main(String[] args) {
-        WeatherApiService weatherApiService = new WeatherApiService(52.52, 13.41);
+        LocationService locationService = new LocationService("Athens");
+        Location athensCity = locationService.getCityLocationList().getFirst();
+        WeatherApiService weatherApiService = new WeatherApiService(athensCity);
+        weatherApiService.saveWeathers();
     }
 }
