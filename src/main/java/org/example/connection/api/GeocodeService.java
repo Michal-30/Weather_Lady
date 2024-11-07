@@ -1,12 +1,12 @@
 package org.example.connection.api;
 
-import lombok.Getter;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import org.example.connection.api.geocode.Coordinates;
 import org.example.connection.db.daos.GenericDao;
 import org.example.connection.db.models.Location;
 import org.example.connection.db.services.GenericService;
@@ -39,7 +39,7 @@ public class GeocodeService {
         return locations;
     }
 
-    public String jsonString(String url) {
+    private String jsonString(String url) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
 
@@ -65,7 +65,7 @@ public class GeocodeService {
         return null;
     }
 
-    public List<Coordinates> coordinates() {
+    private List<Coordinates> coordinates() {
         List<Coordinates> coordinates = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(jsonString(this.urlSearch));
 
@@ -77,7 +77,7 @@ public class GeocodeService {
         }return coordinates;
     }
 
-    public void locatios(){
+    private void locatios(){
         coordinates().forEach(c->{
             String url = String.format("https://geocode.maps.co/reverse?lat=%s&lon=%s&api_key=%s",c.getLatitude(),c.getLongitude(),this.apiKey);
             if(locationByCoordinates(url).getCity() != null && locationByCoordinates(url).getCity().equalsIgnoreCase(this.search)) {
@@ -86,7 +86,7 @@ public class GeocodeService {
         });
     }
 
-    static void scannerJsonObject(JSONObject jsonObject, Location location){
+    private void scannerJsonObject(JSONObject jsonObject, Location location){
         Iterator<String> keys = jsonObject.keys();
         while (keys.hasNext()) {
             String key = keys.next();
@@ -98,7 +98,7 @@ public class GeocodeService {
         }
     }
 
-    public Location locationByCoordinates(String url) {
+    private Location locationByCoordinates(String url) {
         Location newLocation = new Location();
         JSONObject locationObject = new JSONObject(jsonString(url));
         newLocation.setLatitude(locationObject.getDouble("lat"));
