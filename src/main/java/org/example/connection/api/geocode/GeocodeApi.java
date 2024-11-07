@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeocodeService {
+public class GeocodeApi {
 
     private String apiKey = "672603415fb3e308262303soqf25b0d";
     private ApiConnect geocode;
@@ -15,7 +15,7 @@ public class GeocodeService {
     private JSONObject addressObject; //Json address Object ("county", "state", "country_code", "postcode" , "city" ...)
     private final List<Coordinates> coordinates = new ArrayList<>();
 
-    public GeocodeService(String search) {
+    public GeocodeApi(String search) {
         try {
             Thread.sleep(1000);
             String url = String.format("https://geocode.maps.co/search?q=%s&api_key=%s",search, this.apiKey);
@@ -27,7 +27,7 @@ public class GeocodeService {
     }
 
     //constructor
-    public GeocodeService(double latitude, double longitude) {
+    public GeocodeApi(double latitude, double longitude) {
         try {
             Thread.sleep(1000);
             String url = String.format("https://geocode.maps.co/reverse?lat=%s&lon=%s&api_key=%s", latitude, longitude, this.apiKey);

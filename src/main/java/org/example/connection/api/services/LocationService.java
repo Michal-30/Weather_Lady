@@ -1,6 +1,6 @@
-package org.example.connection.services;
+package org.example.connection.api.services;
 
-import org.example.connection.api.geocode.GeocodeService;
+import org.example.connection.api.geocode.GeocodeApi;
 import org.example.connection.db.daos.GenericDao;
 import org.example.connection.db.models.Location;
 import org.example.connection.db.services.GenericService;
@@ -19,7 +19,7 @@ public class LocationService {
     }
 
     public LocationService(String cityName) {
-        GeocodeService geocodeSearchService = new GeocodeService(cityName);
+        GeocodeApi geocodeSearchService = new GeocodeApi(cityName);
         filterCoordinatesToCityLocations(geocodeSearchService);
     }
 
@@ -27,7 +27,7 @@ public class LocationService {
         return cityLocationList;
     }
 
-    private void filterCoordinatesToCityLocations(GeocodeService geocodeService){
+    private void filterCoordinatesToCityLocations(GeocodeApi geocodeService){
         coordinateLocationList(geocodeService).forEach(l-> {
             if(l.getCity() !=null){
                 this.cityLocationList.add(l);
@@ -36,16 +36,16 @@ public class LocationService {
     }
 
     //
-    private List<Location> coordinateLocationList(GeocodeService geocodeService){
+    private List<Location> coordinateLocationList(GeocodeApi geocodeService){
         List<Location> coordinateLocationList = new ArrayList<>();
         geocodeService.getCoordinates().forEach(c-> {
-            GeocodeService geocodeCoordinatesLocations = new GeocodeService(c.getLatitude(), c.getLongitude());
+            GeocodeApi geocodeCoordinatesLocations = new GeocodeApi(c.getLatitude(), c.getLongitude());
             coordinateLocationList.add(location(geocodeCoordinatesLocations));
         });return coordinateLocationList;
     }
 
     //create locationObject with details
-    private Location location(GeocodeService geocodeCoordinatesLocations){
+    private Location location(GeocodeApi geocodeCoordinatesLocations){
         Location newlocation = new Location();
         newlocation.setLatitude(geocodeCoordinatesLocations.getCoordinates().getFirst().getLatitude());
         newlocation.setLongitude(geocodeCoordinatesLocations.getCoordinates().getFirst().getLongitude());
