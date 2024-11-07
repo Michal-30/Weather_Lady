@@ -1,6 +1,6 @@
 package org.example.connection.api.geocode;
 
-import org.example.connection.db.models.Location;
+import org.example.connection.api.ApiConnect;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,18 +16,28 @@ public class GeocodeService {
     private final List<Coordinates> coordinates = new ArrayList<>();
 
     public GeocodeService(String search) {
-        String url = String.format("https://geocode.maps.co/search?q=%s&api_key=%s",search, this.apiKey);
-        this.geocode = new ApiConnect(url);
-        coordinates(url);
+        try {
+            Thread.sleep(1000);
+            String url = String.format("https://geocode.maps.co/search?q=%s&api_key=%s",search, this.apiKey);
+            this.geocode = new ApiConnect(url);
+            coordinates(url);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //constructor
     public GeocodeService(double latitude, double longitude) {
-        String url = String.format("https://geocode.maps.co/reverse?lat=%s&lon=%s&api_key=%s", latitude, longitude, this.apiKey);
-        this.geocode = new ApiConnect(url);
-        this.locationObject = new JSONObject(geocode.getJsonString());
-        this.addressObject = this.locationObject.getJSONObject("address");
-        this.coordinates.add(new Coordinates(latitude, longitude));
+        try {
+            Thread.sleep(1000);
+            String url = String.format("https://geocode.maps.co/reverse?lat=%s&lon=%s&api_key=%s", latitude, longitude, this.apiKey);
+            this.geocode = new ApiConnect(url);
+            this.locationObject = new JSONObject(geocode.getJsonString());
+            this.addressObject = this.locationObject.getJSONObject("address");
+            this.coordinates.add(new Coordinates(latitude, longitude));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void coordinates(String url) {
