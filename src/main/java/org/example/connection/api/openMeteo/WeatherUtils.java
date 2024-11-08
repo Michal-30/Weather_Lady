@@ -1,4 +1,4 @@
-package org.example.connection.api;
+package org.example.connection.api.openMeteo;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
