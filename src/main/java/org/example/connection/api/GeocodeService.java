@@ -7,6 +7,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import org.example.connection.api.geocode.Coordinates;
+import org.example.connection.api.services.WeatherApiService;
 import org.example.connection.db.daos.GenericDao;
 import org.example.connection.db.models.Location;
 import org.example.connection.db.services.GenericService;
@@ -118,7 +119,7 @@ public class GeocodeService {
         GeocodeService locations = new GeocodeService("brno");
         locations.saveLocations();
         locations.getLocations().forEach(l-> {
-            WeatherApiService weatherApiService = new WeatherApiService(l.getLatitude(),l.getLongitude());
+            WeatherApiService weatherApiService = new WeatherApiService(l);
             weatherApiService.saveWeathers();
         });
 
