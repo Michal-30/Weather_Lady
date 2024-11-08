@@ -40,6 +40,5 @@ public class LocationsView implements ApplicationMenu {
         String searchedLocation = textIO.newStringInputReader()
                 .read("Search a location");
 
-
     }
 }
