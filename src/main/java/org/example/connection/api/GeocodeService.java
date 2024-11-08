@@ -119,7 +119,7 @@ public class GeocodeService {
         GeocodeService locations = new GeocodeService("brno");
         locations.saveLocations();
         locations.getLocations().forEach(l-> {
-            WeatherApiService weatherApiService = new WeatherApiService(l.getLatitude(),l.getLongitude());
+            WeatherApiService weatherApiService = new WeatherApiService(l);
             weatherApiService.saveWeathers();
         });
 
