@@ -1,7 +1,7 @@
 package org.example.connection.api.services;
 
-import org.example.connection.api.WeatherApiHttp;
-import org.example.connection.api.WeatherUtils;
+import org.example.connection.api.openMeteo.WeatherApiHttp;
+import org.example.connection.api.openMeteo.WeatherUtils;
 import org.example.connection.db.daos.GenericDao;
 import org.example.connection.db.models.Location;
 import org.example.connection.db.models.Weather;
@@ -33,9 +33,9 @@ public class WeatherApiService {
 
 
     public static void main(String[] args) {
-        LocationService locationService = new LocationService("Athens");
-        Location athensCity = locationService.getCityLocationList().getFirst();
-        WeatherApiService weatherApiService = new WeatherApiService(athensCity);
+        LocationService locationService = new LocationService("Volos");
+        Location kavalaCity = locationService.getCityLocationList().getFirst();
+        WeatherApiService weatherApiService = new WeatherApiService(kavalaCity);
         weatherApiService.saveWeathers();
     }
 }
