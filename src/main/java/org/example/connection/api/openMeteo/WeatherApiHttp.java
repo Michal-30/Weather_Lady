@@ -1,4 +1,6 @@
-package org.example.connection.api;
+package org.example.connection.api.openMeteo;
+
+import org.example.connection.api.ApiConnect;
 
 import java.io.IOException;
 import java.net.URI;
@@ -8,10 +10,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class WeatherApiHttp {
+    private ApiConnect apiConnect;
     private final HttpClient httpClient;
     private final String openMeteoUrl;
     private final String openWeatherUrl;
     private final String openWeatherApiKey;
+
 
     public WeatherApiHttp() {
         // https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m&timezone=Europe%2FBerlin
@@ -28,8 +32,8 @@ public class WeatherApiHttp {
                 "&longitude=" +
                 lon +
                 "&current=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m&timezone=Europe%2FBerlin";
-
-        return this.httpRequest(url);
+        ApiConnect apiConnect = new ApiConnect(url);
+        return apiConnect.getJsonString();
     }
 
     public String getOpenWeatherData(double lat, double lon) {
@@ -39,25 +43,7 @@ public class WeatherApiHttp {
                 lon +
                 "&units=metric&appid=" +
                 openWeatherApiKey;
-
-        return this.httpRequest(url);
+        ApiConnect apiConnect = new ApiConnect(url);
+        return apiConnect.getJsonString();
     }
-
-    private String httpRequest(String url) {
-        try {
-            URI uri = new URI(url);
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(uri)
-                    .GET()
-                    .build();
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            return response.body();
-        } catch (URISyntaxException | IOException | InterruptedException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }
