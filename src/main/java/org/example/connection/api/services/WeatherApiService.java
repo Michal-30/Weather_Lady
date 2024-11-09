@@ -8,25 +8,26 @@ import org.example.connection.db.models.Weather;
 import org.example.connection.db.services.GenericService;
 
 public class WeatherApiService {
-    private final double lat;
-    private final double lon;
+    private Location location;
+
     private final WeatherApiHttp weatherApiHttp;
     private final GenericDao<Weather, Long> weatherDao;
     private final GenericService<Weather, Long> weatherService;
 
     public WeatherApiService(Location location) {
-        this.lat = location.getLatitude();
-        this.lon = location.getLongitude();
+        this.location = location;
         this.weatherApiHttp = new WeatherApiHttp();
         this.weatherDao = new GenericDao<>(Weather.class);
         this.weatherService = new GenericService<>(weatherDao);
     }
 
     public void saveWeathers() {
-        String openMeteoResponse = weatherApiHttp.getOpenMeteoData(this.lat, this.lon);
-        String openWeatherResponse = weatherApiHttp.getOpenWeatherData(this.lat, this.lon);
+        String openMeteoResponse = weatherApiHttp.getOpenMeteoData(this.location.getLatitude(), this.location.getLongitude());
+        String openWeatherResponse = weatherApiHttp.getOpenWeatherData(this.location.getLatitude(), this.location.getLongitude());
 
         Weather weather = new WeatherUtils().createWeather(openMeteoResponse, openWeatherResponse);
+
+        weather.setLocation(location);
 
         weatherService.save(weather);
     }

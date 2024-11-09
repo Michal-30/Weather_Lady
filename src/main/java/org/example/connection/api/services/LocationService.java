@@ -64,7 +64,27 @@ public class LocationService {
     }
 
     public void saveToDB(Location location){
-        this.locationService.save(location);
+        if (checkIfLocationExist(location)) {
+            this.locationService.save(location);
+        }
+
+    }
+
+    public long findLocationFromDb(Location location) {
+        List<Location> locations = getFilteredLocations(location);
+
+        return getFilteredLocations(location).getFirst().getId();
+    }
+
+    private boolean checkIfLocationExist(Location location) {
+        return getFilteredLocations(location).isEmpty();
+    }
+
+    private List<Location> getFilteredLocations(Location location) {
+        return locationService.getAll()
+                .stream()
+                .filter(l-> l.getLatitude() == location.getLatitude() && l.getLongitude() == location.getLongitude())
+                .toList();
     }
 
     public void saveAllCityLocationsToDB(){

@@ -1,7 +1,7 @@
 package org.example.connection.views.menuoptions;
 
 public enum MainMenuOptions {
-    LOCATIONS("Location"), WEATHER("Weather"), EXIT("Exit");
+    CHECK("Check weather"), EXIT("Exit");
 
     private final String value;
 
