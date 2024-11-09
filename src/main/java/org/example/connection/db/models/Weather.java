@@ -9,6 +9,8 @@ public class Weather {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    private Location location;
 
     private LocalDateTime time;
     @Column(name = "temp_meteo")
