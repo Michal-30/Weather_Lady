@@ -60,6 +60,14 @@ public class Location {
         return city;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }

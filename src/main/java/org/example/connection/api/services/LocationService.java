@@ -53,11 +53,13 @@ public class LocationService {
         Iterator<String> keys = adressJsonObject.keys();
         while (keys.hasNext()) {
             String key = keys.next();
-            if(key.equals("county")){newlocation.setCounty(adressJsonObject.get(key).toString());};
-            if(key.equals("municipality")){newlocation.setMunicipality(adressJsonObject.get(key).toString());};
-            if(key.equals("suburb")){newlocation.setSuburb(adressJsonObject.get(key).toString());};
-            if(key.equals("country")){newlocation.setCountry(adressJsonObject.get(key).toString());};
-            if(key.equals("city")){newlocation.setCity(adressJsonObject.get(key).toString());};
+            if(key.equals("county")){newlocation.setCounty(adressJsonObject.get(key).toString());}
+            if(key.equals("municipality")){newlocation.setMunicipality(adressJsonObject.get(key).toString());}
+            if(key.equals("suburb")){newlocation.setSuburb(adressJsonObject.get(key).toString());}
+            if(key.equals("country")){newlocation.setCountry(adressJsonObject.get(key).toString());}
+            if(key.equals("city") || key.equals("town") || key.equals("village")){
+                newlocation.setCity(adressJsonObject.get(key).toString());
+            }
         }return newlocation;
     }
 

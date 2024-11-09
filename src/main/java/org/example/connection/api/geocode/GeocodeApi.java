@@ -4,6 +4,8 @@ import org.example.connection.api.ApiConnect;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +18,10 @@ public class GeocodeApi {
     private final List<Coordinates> coordinates = new ArrayList<>();
 
     public GeocodeApi(String search) {
+
         try {
             Thread.sleep(1000);
-            String url = String.format("https://geocode.maps.co/search?q=%s&api_key=%s",search, this.apiKey);
+            String url = String.format("https://geocode.maps.co/search?q=%s&api_key=%s", URLEncoder.encode(search, StandardCharsets.UTF_8), this.apiKey);
             this.geocode = new ApiConnect(url);
             coordinates(url);
         } catch (InterruptedException e) {
