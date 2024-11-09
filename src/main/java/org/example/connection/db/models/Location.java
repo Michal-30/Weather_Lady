@@ -24,6 +24,10 @@ public class Location {
 //    @OneToMany(mappedBy = "location")
 //    private List<Weather> weathers = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
     public double getLatitude() {
         return latitude;
     }

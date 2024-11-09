@@ -1,5 +1,7 @@
 package org.example.connection.db.models;
 
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -9,6 +11,7 @@ public class Weather {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Location location;
 
@@ -43,5 +46,9 @@ public class Weather {
         this.humidityWeather = humidityWeather;
         this.cloudWeather = cloudWeather;
         this.windWeather = windWeather;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
