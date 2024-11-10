@@ -90,15 +90,13 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", country='" + country + '\'' +
-                ", county='" + county + '\'' +
-                ", municipality='" + municipality + '\'' +
-                ", city='" + city + '\'' +
-                ", suburb='" + suburb + '\'' +
-                '}';
+
+        return String.format("s %s,s s%s,s %s,s %s,s %s",
+                this.suburb == null ? "" : this.suburb,
+                this.city == null ? "" : this.city,
+                this.municipality == null ? "" : this.municipality,
+                this.county == null ? "" : this.county,
+                this.country == null ? "" : this.country);
     }
+
 }
