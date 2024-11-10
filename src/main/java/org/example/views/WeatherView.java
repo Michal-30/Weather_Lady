@@ -74,7 +74,7 @@ public class WeatherView implements ApplicationMenu {
         textIO.getTextTerminal().println();
         for (int i = 0; i < locationList.size(); i++) {
             Location location = locationList.get(i);
-            textIO.getTextTerminal().println((i + 1) + ": " + location.getCity() + ", " + location.getCounty() + ", " + location.getCountry());
+            textIO.getTextTerminal().println((i + 1) + ": " + location.toString());
             if (i == locationList.size() - 1) {
                 textIO.getTextTerminal().println((i + 2) + ": Back");
             }
