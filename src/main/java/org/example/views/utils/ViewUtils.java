@@ -4,6 +4,7 @@ import org.beryx.textio.TextIO;
 import org.example.db.models.Location;
 import org.example.db.models.Weather;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 
