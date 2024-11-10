@@ -3,18 +3,15 @@ package org.example.api.services;
 import org.example.api.geocode.Coordinates;
 import org.example.api.meteo.WeatherApiHttp;
 import org.example.api.meteo.WeatherUtils;
-import org.example.db.daos.GenericDao;
 import org.example.db.models.Location;
 import org.example.db.models.Weather;
-import org.example.db.services.GenericService;
 
 public class WeatherApiService {
     private final WeatherApiHttp weatherApiHttp;
     private Weather weather;
-    GenericService<Weather, Long> weatherService;
 
-    public WeatherApiService(GenericService<Weather, Long> weatherService) {
-        this.weatherService = weatherService;
+
+    public WeatherApiService() {
         this.weatherApiHttp = new WeatherApiHttp();
     }
 

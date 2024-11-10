@@ -25,8 +25,10 @@ public class WeatherView implements ApplicationMenu {
         List<Location> locationList = viewService.search(searchedLocation);
 
         int choice = this.choiceInput(locationList);
+        textIO.getTextTerminal().println();
+        textIO.getTextTerminal().println();
 
-        if (choice == locationList.size() + 1) return;
+        if (choice == locationList.size() + 1 || choice == -1) return;
 
         Location locationToDb = this.viewService.getCorrectLocation(locationList.get(choice - 1));
 
@@ -72,6 +74,13 @@ public class WeatherView implements ApplicationMenu {
     private int choiceInput(List<Location> locationList) {
         textIO.getTextTerminal().println();
         textIO.getTextTerminal().println();
+
+        if (locationList.isEmpty()) {
+            textIO.getTextTerminal().println("No result was received.");
+
+            return -1;
+        }
+
         for (int i = 0; i < locationList.size(); i++) {
             Location location = locationList.get(i);
             textIO.getTextTerminal().println((i + 1) + ": " + location.getCity() + ", " + location.getCounty() + ", " + location.getCountry());

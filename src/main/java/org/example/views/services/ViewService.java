@@ -24,7 +24,7 @@ public class ViewService {
         this.locationApiService = new LocationApiService(locationService);
         this.weatherDao = new GenericDao<>(Weather.class);
         this.weatherService = new GenericService<>(weatherDao);
-        this.weatherApiService = new WeatherApiService(weatherService);
+        this.weatherApiService = new WeatherApiService();
     }
 
     public Location getCorrectLocation(Location location) {
