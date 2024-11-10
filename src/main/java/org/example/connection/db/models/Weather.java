@@ -51,4 +51,12 @@ public class Weather {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                        "Meteo      : (Temp: %s, Humidity: %s, Cloud: %s, Wind: %s)\n" +
+                        "OpenWeather: (Temp: %s, Humidity: %s, Cloud: %s, Wind: %s)",
+                this.tempMeteo,this.humidityMeteo, this.cloudMeteo, this.windMeteo, this.tempWeather, this.humidityWeather, this.humidityWeather, this.windWeather);
+    }
 }
