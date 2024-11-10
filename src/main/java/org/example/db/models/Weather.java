@@ -54,6 +54,10 @@ public class Weather {
         return location;
     }
 
+    public LocalDateTime getTime() {
+        return time;
+    }
+
     public double getTempMeteo() {
         return tempMeteo;
     }
