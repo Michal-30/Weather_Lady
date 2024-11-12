@@ -1,5 +1,6 @@
 package org.example.views.menuoptions;
 
+@SuppressWarnings("all")
 public enum MainMenuOptions {
     CHECK("Check weather"), EXIT("Exit");
 

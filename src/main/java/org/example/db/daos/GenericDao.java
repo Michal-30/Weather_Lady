@@ -1,12 +1,11 @@
 package org.example.db.daos;
 
 
-import org.example.api.geocode.Coordinates;
 import org.example.db.models.Location;
 import org.example.db.util.HibernateUtil;
+import org.example.models.Coordinates;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -54,8 +53,8 @@ public class GenericDao <T, ID extends Serializable> {
             CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityType);
             Root<T> genericRoot = criteriaQuery.from(entityType);
 
-            Predicate latPredicate = criteriaBuilder.equal(genericRoot.get("latitude"), coordinates.getLatitude());
-            Predicate lonPredicate = criteriaBuilder.equal(genericRoot.get("longitude"), coordinates.getLongitude());
+            Predicate latPredicate = criteriaBuilder.equal(genericRoot.get("latitude"), coordinates.latitude());
+            Predicate lonPredicate = criteriaBuilder.equal(genericRoot.get("longitude"), coordinates.longitude());
 
 
             criteriaQuery.select(genericRoot).where(latPredicate, lonPredicate);
