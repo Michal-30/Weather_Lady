@@ -1,9 +1,9 @@
 package org.example.db.services;
 
 
-import org.example.api.geocode.Coordinates;
 import org.example.db.daos.GenericDao;
 import org.example.db.models.Location;
+import org.example.models.Coordinates;
 
 import java.io.Serializable;
 import java.util.List;

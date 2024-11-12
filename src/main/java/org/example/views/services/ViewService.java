@@ -1,30 +1,25 @@
 package org.example.views.services;
 
-import org.example.api.geocode.Coordinates;
-import org.example.api.services.LocationApiService;
-import org.example.api.services.WeatherApiService;
+import org.example.api.LocationApiService;
 import org.example.db.daos.GenericDao;
 import org.example.db.models.Location;
 import org.example.db.models.Weather;
 import org.example.db.services.GenericService;
+import org.example.models.Coordinates;
 
 import java.util.List;
 
 public class ViewService {
-    private final WeatherApiService weatherApiService;
     private final LocationApiService locationApiService;
-    private final GenericDao<Location, Long> locationDao;
     private final GenericService<Location, Long> locationService;
-    private final GenericDao<Weather, Long> weatherDao;
     private final GenericService<Weather, Long> weatherService;
 
     public ViewService() {
-        this.locationDao = new GenericDao<>(Location.class);
+        GenericDao<Location, Long> locationDao = new GenericDao<>(Location.class);
         this.locationService = new GenericService<>(locationDao);
         this.locationApiService = new LocationApiService(locationService);
-        this.weatherDao = new GenericDao<>(Weather.class);
+        GenericDao<Weather, Long> weatherDao = new GenericDao<>(Weather.class);
         this.weatherService = new GenericService<>(weatherDao);
-        this.weatherApiService = new WeatherApiService();
     }
 
     public Location getCorrectLocation(Location location) {
@@ -35,12 +30,6 @@ public class ViewService {
         }
 
         return checkedLocation;
-    }
-
-    public Weather createWeather(Location location) {
-        this.weatherApiService.createWeather(location);
-
-        return this.weatherApiService.getWeather();
     }
 
     public List<Location> search(String searchedLocation) {
